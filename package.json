@@ -1,9 +1,10 @@
 {
   "name": "greenkeeper-lockfile",
   "description": "Your lockfile, up to date, all the time",
-  "version": "0.0.0-development",
+  "version": "2.9.0-workspaces.0",
   "author": "Stephan Bönnemann <stephan@boennemann.me> (http://boennemann.me)",
   "bin": {
+    "greenkeeper-lockfile-update-workspace": "update-workspace.js",
     "greenkeeper-lockfile-update": "update.js",
     "greenkeeper-lockfile-upload": "upload.js",
     "greenkeeper-shrinkwrap-update": "update.js",
