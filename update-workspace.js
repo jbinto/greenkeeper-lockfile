@@ -42,8 +42,9 @@ module.exports = function update () {
     return console.error('This build should not update the lockfile. It could be a PR, not a branch build.')
   }
 
-  if (hasLockfileCommit(info)) {
-    return console.error('greenkeeper-lockfile already has a commit on this branch')
+  if (hasLockfileCommit(info)) { // Note this performs side effects and is needed even if we discard the result
+    // In the workspaces case, this is not fatal.
+    console.warn('WARNING: greenkeeper-lockfile already has a commit on this branch, continuing anyway')
   }
 
   // make sure that we have a clean working tree
