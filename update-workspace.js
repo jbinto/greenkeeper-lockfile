@@ -10,8 +10,10 @@ const config = require('./lib/config')
 const hasLockfileCommit = require('./lib/git-helpers').hasLockfileCommit
 
 const lockfile = require('./lib/update-lockfile')
+const setupGitUser = lockfile.setupGitUser
 const stageLockfile = lockfile.stageLockfile
 const commitLockfiles = lockfile.commitLockfiles
+
 
 const ci = require('./ci-services')
 
@@ -45,10 +47,10 @@ module.exports = function update () {
   }
 
   // make sure that we have a clean working tree
+  setupGitUser()
   exec('git stash')
 
-  const opts = process.env.GK_LOCK_YARN_OPTS ? ` ${process.env.GK_LOCK_YARN_OPTS}` : ''
-  exec(`yarn install${opts}`)
+  exec('yarn install')
   stageLockfile({
     ignoreOutput: info.ignoreOutput
   })
