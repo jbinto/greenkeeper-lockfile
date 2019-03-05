@@ -40,7 +40,7 @@ module.exports = function upload () {
 
   const err = fs.openSync('gk-lockfile-git-push.err', 'w')
   const pushCommand = `git push${process.env.GK_LOCK_COMMIT_AMEND ? ` --force-with-lease=${info.branchName}:origin/${info.branchName}` : ''} gk-origin HEAD:${info.branchName}`
-  DEBUG && console.log('About to execute: ', pushCommand)
+  console.log('About to execute: ', pushCommand)
   exec(pushCommand, {
     stdio: [
       'pipe',
