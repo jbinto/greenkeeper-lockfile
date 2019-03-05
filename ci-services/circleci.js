@@ -9,7 +9,7 @@ const env = process.env
  * Last commit is a lockfile update
  */
 function isLockfileUpdate () {
-  const reUpdateLockfile = /^chore\(package\): update lockfiles*$/mi
+  const reUpdateLockfile = /^chore\(package\): update lockfile/mi
   const lastCommitMessage = gitHelpers.getLastCommitMessage()
   console.log({ lastCommitMessage })
   return reUpdateLockfile.test(lastCommitMessage)
