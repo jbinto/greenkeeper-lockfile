@@ -11,8 +11,16 @@ const env = process.env
 function isLockfileUpdate () {
   const reUpdateLockfile = /^chore\(package\): update lockfiles*$/mi
   const lastCommitMessage = gitHelpers.getLastCommitMessage()
+  console.log({ lastCommitMessage })
   return reUpdateLockfile.test(lastCommitMessage)
 }
+
+console.log({
+  CIRCLE_NODE_INDEX: env.CIRCLE_NODE_INDEX,
+  BUILD_LEADER_ID: env.BUILD_LEADER_ID,
+  isLockfileUpdate: isLockfileUpdate()
+})
+
 
 module.exports = {
   repoSlug: `${env.CIRCLE_PROJECT_USERNAME}/${env.CIRCLE_PROJECT_REPONAME}`,
