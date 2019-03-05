@@ -35,11 +35,13 @@ module.exports = function upload () {
   }
 
   if (hasLockfileCommit(info)) { // Note: this has a side-effect that is required for the exec('git push') below
-    return console.error('greenkeeper-lockfile already has a commit on this branch')
+    console.warn('WARNING: greenkeeper-lockfile already has a commit on this branch, continuing anyway')
   }
 
   const err = fs.openSync('gk-lockfile-git-push.err', 'w')
-  exec(`git push${process.env.GK_LOCK_COMMIT_AMEND ? ` --force-with-lease=${info.branchName}:origin/${info.branchName}` : ''} gk-origin HEAD:${info.branchName}`, {
+  const pushCommand = `git push${process.env.GK_LOCK_COMMIT_AMEND ? ` --force-with-lease=${info.branchName}:origin/${info.branchName}` : ''} gk-origin HEAD:${info.branchName}`
+  DEBUG && console.log('About to execute: ', pushCommand)
+  exec(pushCommand, {
     stdio: [
       'pipe',
       'pipe',
