@@ -47,7 +47,8 @@ module.exports = function update () {
   // make sure that we have a clean working tree
   exec('git stash')
 
-  exec('yarn install')
+  const opts = process.env.GK_LOCK_YARN_OPTS ? ` ${process.env.GK_LOCK_YARN_OPTS}` : ''
+  exec(`yarn install${opts}`)
   stageLockfile({
     ignoreOutput: info.ignoreOutput
   })
