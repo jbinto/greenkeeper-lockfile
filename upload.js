@@ -31,7 +31,10 @@ module.exports = function upload () {
   }
 
   if (!info.uploadBuild) {
-    return console.error('Only uploading on one build job')
+    console.warn('WARNING: Not an uploadBuild job (either not the first CircleCI job, or isLockfileUpdate returned false). Continuing anyway', {
+      CIRCLE_NODE_INDEX: env.CIRCLE_NODE_INDEX,
+      BUILD_LEADER_ID: env.BUILD_LEADER_ID,
+    })
   }
 
   if (hasLockfileCommit(info)) { // Note: this has a side-effect that is required for the exec('git push') below
