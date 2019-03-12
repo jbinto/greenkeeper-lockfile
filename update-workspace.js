@@ -39,7 +39,7 @@ module.exports = function update () {
   }
 
   if (!info.correctBuild) {
-    return console.error('This build should not update the lockfile. It could be a PR, not a branch build.', {
+    console.warn('WARNING: This build should not update the lockfile. It could be a PR, not a branch build. Continuing anyway.', {
       CI_PULL_REQUEST: process.env.CI_PULL_REQUEST,
       CIRCLE_PREVIOUS_BUILD_NUM: process.env.CIRCLE_PREVIOUS_BUILD_NUM,
     })
@@ -53,10 +53,9 @@ module.exports = function update () {
   // make sure that we have a clean working tree
   setupGitUser()
   exec('git stash')
-
   exec('yarn install')
   stageLockfile({
-    ignoreOutput: info.ignoreOutput
+    ignoreOutput: false
   })
   commitLockfiles()
 
