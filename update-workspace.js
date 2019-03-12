@@ -39,7 +39,10 @@ module.exports = function update () {
   }
 
   if (!info.correctBuild) {
-    return console.error('This build should not update the lockfile. It could be a PR, not a branch build.')
+    return console.error('This build should not update the lockfile. It could be a PR, not a branch build.', {
+      CI_PULL_REQUEST: process.env.CI_PULL_REQUEST,
+      CIRCLE_PREVIOUS_BUILD_NUM: process.env.CIRCLE_PREVIOUS_BUILD_NUM,
+    })
   }
 
   if (hasLockfileCommit(info)) { // Note this performs side effects and is needed even if we discard the result

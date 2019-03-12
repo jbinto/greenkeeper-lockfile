@@ -32,8 +32,8 @@ module.exports = function upload () {
 
   if (!info.uploadBuild) {
     console.warn('WARNING: Not an uploadBuild job (either not the first CircleCI job, or isLockfileUpdate returned false). Continuing anyway', {
-      CIRCLE_NODE_INDEX: env.CIRCLE_NODE_INDEX,
-      BUILD_LEADER_ID: env.BUILD_LEADER_ID,
+      CIRCLE_NODE_INDEX: process.env.CIRCLE_NODE_INDEX,
+      BUILD_LEADER_ID: process.env.BUILD_LEADER_ID,
     })
   }
 
