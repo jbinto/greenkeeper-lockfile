@@ -9,6 +9,8 @@ const config = require('./lib/config')
 const info = require('./ci-services')()
 const hasLockfileCommit = require('./lib/git-helpers').hasLockfileCommit
 
+const setupGitUser = require('./lib/update-lockfile').setupGitUser
+
 module.exports = function upload () {
   if (!info.branchName) {
     return console.error('No branch details set, so assuming not a Greenkeeper branch')
@@ -37,6 +39,7 @@ module.exports = function upload () {
     })
   }
 
+  setupGitUser()
   if (hasLockfileCommit(info)) { // Note: this has a side-effect that is required for the exec('git push') below
     console.warn('WARNING: greenkeeper-lockfile already has a commit on this branch, continuing anyway')
   }
